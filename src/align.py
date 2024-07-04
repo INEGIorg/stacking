@@ -21,10 +21,9 @@ def align_images(images):
         src_pts = np.float32([kp1[m.queryIdx].pt for m in matches]).reshape(-1, 1, 2)
         dst_pts = np.float32([kp2[m.trainIdx].pt for m in matches]).reshape(-1, 1, 2)
 
+        sz = (images[0].shape[1], images[0].shape[0])
         M, _ = cv.findHomography(dst_pts, src_pts, cv.RANSAC, 5.0)
-        return cv.warpPerspective(
-            images[i], M, (images[0].shape[1], images[0].shape[0])
-        )
+        return cv.warpPerspective(images[i], M, sz)
 
     with ThreadPoolExecutor() as executor:
         return list(executor.map(process_image, range(len(images))))

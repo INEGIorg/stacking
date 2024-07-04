@@ -17,7 +17,7 @@ def main():
     images = load_images(files)
     images = align_images(images)
     image = stack_images(images)
-    save_image("result.png", image)
+    save_image(f"{args.path}.png", image)
 
 
 if __name__ == "__main__":
