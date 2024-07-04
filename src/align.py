@@ -32,3 +32,12 @@ def align_images(images):
 
 def stack_images(images):
     return np.mean(images, axis=0).astype(np.uint8)
+
+
+def load_images(files):
+    with ThreadPoolExecutor() as executor:
+        return list(executor.map(lambda f: cv.imread(str(f)), files))
+
+
+def save_image(path, image):
+    cv.imwrite(path, image)
